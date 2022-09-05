@@ -13,4 +13,6 @@ public class CommentResponse {
     private String message;
     private LocalDateTime timeStamp;
     private Comment comment;
+    private  Post post;
+
 }

@@ -15,6 +15,7 @@ import com.enwerevincent.restblog.Repository.UserRepository;
 import com.enwerevincent.restblog.Response.*;
 import com.enwerevincent.restblog.Service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.Normalizer;
@@ -25,13 +26,22 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
-@Service @RequiredArgsConstructor
+@Service
 public class UserServiceImpl implements UserService {
-
     private final LikeRepository likeRepository;
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
     private final PostRepository postRepository;
+
+    @Autowired
+    public UserServiceImpl(LikeRepository likeRepository, UserRepository userRepository, CommentRepository commentRepository, PostRepository postRepository) {
+        this.likeRepository = likeRepository;
+        this.userRepository = userRepository;
+        this.commentRepository = commentRepository;
+        this.postRepository = postRepository;
+    }
+
+
 
     private static final Pattern NONLATIN = Pattern.compile("[^\\w-]");
     private static final Pattern WHITESPACE = Pattern.compile("[\\s]");
@@ -85,7 +95,7 @@ public class UserServiceImpl implements UserService {
         comment.setUser(user);
         comment.setPost(post);
         commentRepository.save(comment);
-        return new CommentResponse("success" , LocalDateTime.now() , comment);
+        return new CommentResponse("success" , LocalDateTime.now() , comment , post);
     }
 
     @Override
@@ -108,7 +118,7 @@ public class UserServiceImpl implements UserService {
         }
 
 
-        return null;
+        return likeResponse;
     }
 
     @Override
