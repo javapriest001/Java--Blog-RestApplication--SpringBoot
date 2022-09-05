@@ -1,5 +1,6 @@
 package com.enwerevincent.restblog.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,10 +29,12 @@ public class Like {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "user_id" , referencedColumnName = "id")
     private  User user;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "post_id" , referencedColumnName = "id")
     private Post post;

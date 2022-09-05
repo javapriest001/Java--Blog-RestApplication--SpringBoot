@@ -1,6 +1,7 @@
 package com.enwerevincent.restblog.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,12 +33,15 @@ public class User {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<Post> postList = new ArrayList<>();
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<Comment> commentList = new ArrayList<>();
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<Like> likeList = new ArrayList<>();
 
