@@ -21,6 +21,9 @@ public interface UserService {
 
     SearchCommentResponse searchComment(String keyword);
 
+
     SearchPostResponse searchPost(String keyword);
+
+    Post findPostById(int id);
 
 }

@@ -2,10 +2,7 @@ package com.enwerevincent.restblog.Model;
 
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -16,7 +13,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-@Setter @Getter @AllArgsConstructor @NoArgsConstructor
+@Setter @Getter @AllArgsConstructor @NoArgsConstructor @EqualsAndHashCode
 public class User {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,5 +41,6 @@ public class User {
     @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<Like> likeList = new ArrayList<>();
+
 
 }

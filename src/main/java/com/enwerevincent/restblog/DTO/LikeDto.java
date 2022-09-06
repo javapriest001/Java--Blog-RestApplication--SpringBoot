@@ -1,8 +1,9 @@
 package com.enwerevincent.restblog.DTO;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@Data
+@Data @AllArgsConstructor
 public class LikeDto {
     private boolean isLiked;
 }

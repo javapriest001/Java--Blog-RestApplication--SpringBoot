@@ -4,10 +4,8 @@ import com.enwerevincent.restblog.DTO.CommentDto;
 import com.enwerevincent.restblog.DTO.LikeDto;
 import com.enwerevincent.restblog.DTO.PostDto;
 import com.enwerevincent.restblog.DTO.UserDto;
-import com.enwerevincent.restblog.Response.CommentResponse;
-import com.enwerevincent.restblog.Response.CreatePostResponse;
-import com.enwerevincent.restblog.Response.LikeResponse;
-import com.enwerevincent.restblog.Response.RegisterResponse;
+import com.enwerevincent.restblog.Model.Post;
+import com.enwerevincent.restblog.Response.*;
 import com.enwerevincent.restblog.Service.UserService;
 import com.enwerevincent.restblog.ServiceImpl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -60,7 +58,20 @@ public class UserController {
         return ResponseEntity.created(uri).body( userService.like(user_id , post_id , likeDto));
     }
 
+    @GetMapping(value = "/searchPost/{keyword}")
+    public ResponseEntity<SearchPostResponse> searchPost(@PathVariable(  value = "keyword") String keyword){
+        return ResponseEntity.ok().body(userService.searchPost(keyword));
+    }
 
+    @GetMapping(value = "/searchComment/{keyword}")
+    public ResponseEntity<SearchCommentResponse> searchComment(@PathVariable(  value = "keyword") String keyword){
+        return ResponseEntity.ok().body(userService.searchComment(keyword));
+    }
+
+    @GetMapping(value = "/post/{id}")
+    public ResponseEntity<Post> searchComment(@PathVariable(  value = "id") Integer id){
+        return ResponseEntity.ok().body(userService.findPostById(id));
+    }
 
 
 }

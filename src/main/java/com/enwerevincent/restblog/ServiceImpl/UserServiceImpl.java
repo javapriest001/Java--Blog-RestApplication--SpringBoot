@@ -65,9 +65,9 @@ public class UserServiceImpl implements UserService {
         if (guest != null){
             if (guest.getPassword().equals(loginDto.getPassword())){
                 loginResponse = new LoginResponse("success" , LocalDateTime.now());
+            }else {
+                loginResponse = new LoginResponse("password MisMatch" , LocalDateTime.now());
             }
-        }else {
-            loginResponse = new LoginResponse("password MisMatch" , LocalDateTime.now());
         }
         return loginResponse;
     }
