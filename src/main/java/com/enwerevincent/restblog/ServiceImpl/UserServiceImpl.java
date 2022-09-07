@@ -129,7 +129,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public SearchPostResponse searchPost(String keyword) {
-        List<Post> postList = postRepository.findByTitleContaining(keyword);
+        List<Post> postList = postRepository.findByTitleContainingIgnoreCase(keyword);
         return new SearchPostResponse("success" , LocalDateTime.now() , postList);
     }
 

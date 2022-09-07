@@ -17,6 +17,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
+
 @RestController   @Slf4j
 @RequestMapping( value = "/api")
 public class UserController {
@@ -33,22 +36,23 @@ public class UserController {
     @PostMapping(value = "/register")
     public ResponseEntity<RegisterResponse> register(@RequestBody UserDto userDto){
         log.info("Successfully Registered {} " , userDto.getEmail());
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/register").toUriString());
-        return ResponseEntity.created(uri).body( userService.register(userDto));
+     //  URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/register").toUriString());
+       // return ResponseEntity.created(uri).body( );
+        return new ResponseEntity<>(userService.register(userDto) , CREATED);
     }
 
     @PostMapping(value = "/create")
     public ResponseEntity<CreatePostResponse> create(@RequestBody PostDto postDto){
         log.info("Successfully Created A post With Title:  {} " , postDto.getTitle());
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/create").toUriString());
-        return ResponseEntity.created(uri).body( userService.createPost(postDto));
+        return  new ResponseEntity<>(userService.createPost(postDto) , CREATED);
     }
 
     @PostMapping(value = "/comment/{user_id}/{post_id}")
     public ResponseEntity<CommentResponse> comment(@PathVariable(value = "user_id") Integer user_id, @PathVariable(value = "post_id") Integer post_id,  @RequestBody CommentDto commentDto){
         log.info("Successfully commented :  {} " , commentDto.getComment());
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/comment").toUriString());
-        return ResponseEntity.created(uri).body( userService.comment(user_id , post_id , commentDto));
+      //  URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/comment").toUriString());
+      //  return ResponseEntity.created(uri).body();
+        return new ResponseEntity<>( userService.comment(user_id , post_id , commentDto) , CREATED);
     }
 
     @PostMapping(value = "/like/{user_id}/{post_id}")
@@ -60,7 +64,7 @@ public class UserController {
 
     @GetMapping(value = "/searchPost/{keyword}")
     public ResponseEntity<SearchPostResponse> searchPost(@PathVariable(  value = "keyword") String keyword){
-        return ResponseEntity.ok().body(userService.searchPost(keyword));
+        return new ResponseEntity<>(userService.searchPost(keyword) , OK);
     }
 
     @GetMapping(value = "/searchComment/{keyword}")
